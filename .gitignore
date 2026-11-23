@@ -1,0 +1,6 @@
+*.olean
+.lake/
+lean.tar.gz
+lean/
+remark.pdf
+remark.txt
