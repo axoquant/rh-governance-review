@@ -18,6 +18,10 @@ def main():
         print(f'=== chunk {i}: {len(mods)} modules ===', flush=True)
         r = subprocess.run(['lake', 'build'] + mods)
         print(f'=== chunk {i} exit {r.returncode} ===', flush=True)
+        # Clean discardable ir files between chunks, while no lake process is
+        # running. Deleting mid-build races with lake and fails modules.
+        subprocess.run(['find', '.lake/build/ir', '-type', 'f', '-delete'],
+                       capture_output=True)
         if r.returncode != 0:
             sys.exit(r.returncode)
 
