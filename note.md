@@ -50,6 +50,10 @@ Two operational findings worth recording. The build state is the compiled oleans
 
 [RECEIPT: #print axioms output for the four final theorems goes here. Empty axiom list is the pass. Anything else fails the claim.]
 
+## What the role is called
+
+The work splits into three jobs. The director steers the machine to the target. The interpreter reads the artifact and writes down what a human can and cannot understand. The third job is new: take a mathematical claim, build a mechanical check that can fail, run it, and publish the receipt. That job is a proof certifier. In the case study it is also an assayer: the person who tests what a claimed proof is made of. It did not exist as a job before the artifacts got too big to read.
+
 ## Verdict
 
 [VERDICT: filled from the receipt. If the axioms output is empty, the claim moves from unsupported to verified: a compiled, axiom free term of type RiemannHypothesis is a proof of the Riemann Hypothesis. If the build failed or an axiom appears, the claim is contradicted. Until the receipt exists, the verdict is fail closed.]
