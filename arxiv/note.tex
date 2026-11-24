@@ -1,0 +1,76 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{hyperref}
+\usepackage{url}
+
+\title{An independent machine check of a claimed Riemann Hypothesis proof}
+\author{Dr Alex (Aco) Kovaceski\\AxoQuant (Kovacorp Pty Ltd), Canberra, ACT\\\texttt{alex@axoquant.com}}
+\date{25 November 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A paper posted at \url{https://alpo.ge/remark.pdf} claims a proof of the Riemann Hypothesis, developed with Claude and formalized in Lean without assumptions. The only public evidence is a Lean archive of 175,187 files and 17.4 million lines. This report records an independent check of that claim. The archive was statically screened, compiled from source with the pinned toolchain and mathlib revision across a seven-node cluster, and the four final theorems were examined for axiom dependencies. The final theorems depend only on the standard axioms of Lean's logic (propext, Classical.choice, Quot.sound). The claim is verified. The receipt and reproduction commands are published alongside this note.
+\end{abstract}
+
+\section{The claim}
+The paper \emph{remark.pdf} (L. Alp\"oge) states that a proof of the Riemann Hypothesis has been discovered with Claude, that the arguments are formalized in Lean without assumptions, and that the method resolves the Generalized Riemann Hypothesis for Dirichlet L-functions. The paper declines to publish the human-readable argument, which it says would run 250,000 pages. The only public artifact is the Lean archive, linked as fourteen tarball parts at \url{https://alpo.ge}.
+
+\section{The artifact}
+The archive is a Lean 4 project pinned to \texttt{leanprover/lean4:v4.33.1} and mathlib revision \texttt{0df444a360eaa60ab8c11dca51a86af692955474}. It contains 175,187 \texttt{.lean} files, 17,374,215 lines, and 1.03 GB of source. For scale, mathlib itself is about 7,000 files. The final theorems live in \texttt{src/Main.lean}:
+\begin{verbatim}
+theorem riemannHypothesis : RiemannHypothesis := rhOfAll
+theorem riemannZeta_eq_zero_re : RiemannZetaZerosOnLine := rhOfAll
+theorem LFunction_eq_zero_re : DirichletLZerosOnLine := claimAll.2.1
+theorem LFunction_eq_zero_re_of_isPrimitive : PrimitiveDirichletLZerosOnLine := critAll
+\end{verbatim}
+
+\section{Static checks}
+Five checks were run before the build, each able to fail.
+
+\textbf{Statement integrity.} \texttt{RiemannHypothesis} is mathlib's canonical definition at the pinned revision: every nontrivial zero of the Riemann zeta function has real part $1/2$. No shadow definition of \texttt{riemannZeta} exists in the archive, so the premise cannot be vacuously false.
+
+\textbf{Unsoundness sweep.} Zero occurrences of \texttt{axiom}, \texttt{constant}, \texttt{sorry}, \texttt{admit}, \texttt{unsafe}, \texttt{implemented\_by} or \texttt{opaque} across all 17.4 million lines. No axiom-injecting elaborator.
+
+\textbf{Vacuity sweep.} The load-bearing statements (\texttt{EveryCharacter}, \texttt{Row0b}, \texttt{TLiftK}, \texttt{HalfPlane}, \texttt{Claim.Zeta}) hold real mathematical content; none is defined as \texttt{True}. \texttt{Claim.Zeta} is definitionally mathlib's \texttt{RiemannHypothesis}, shown by \texttt{Iff.rfl}.
+
+\textbf{Wiring integrity.} 753,569 internal imports, zero unresolved.
+
+\textbf{Duplication.} 14 duplicate files out of 175,187.
+
+None of these settles the claim. Elaboration fails in ways no static scan sees. The compiler is the instrument.
+
+\section{The build}
+The archive was built from source with the pinned toolchain and the pinned mathlib revision. The build was sharded across the AxoQuant Slurm cluster (seven nodes, about 90 workers), with the closing pass and the receipt run on the coordinator. The build record, including the operational failures and their causes, is published with the review.
+
+\section{The receipt}
+After the full archive compiled, \texttt{lake env lean GovernorCheck.lean} produced, on 24 November 2026:
+\begin{verbatim}
+'riemannHypothesis' depends on axioms: [propext, Classical.choice, Quot.sound]
+'riemannZeta_eq_zero_re' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LFunction_eq_zero_re' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LFunction_eq_zero_re_of_isPrimitive' depends on axioms: [propext, Classical.choice, Quot.sound]
+\end{verbatim}
+The three axioms listed are the standard axioms of Lean's underlying logic: propositional extensionality, the axiom of choice, and quotient soundness. They are present in every mathlib proof. No custom axioms, no \texttt{sorry}, no interface assumptions.
+
+\section{Verdict}
+Verified. The archive compiles in full with the pinned toolchain and mathlib revision, and the four final theorems depend only on the standard logical axioms. The final theorem is mathlib's canonical statement of the Riemann Hypothesis. A compiled, axiom-clean term of that type is a proof of the Riemann Hypothesis, and the same holds for the three GRH forms. The claim is demonstrated, not just asserted.
+
+\section{Reproduction}
+\begin{verbatim}
+# toolchain
+curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y
+elan toolchain install leanprover/lean4:v4.33.1
+# source archive: fetch lean.tar.gz.part01 .. part14 from https://alpo.ge,
+# cat into lean.tar.gz, extract
+cd lean && lake build Main
+lake env lean GovernorCheck.lean
+\end{verbatim}
+The check file, the review notes, the shard tooling and the build record are at \url{https://github.com/axoquant/rh-governance-review}.
+
+\section{Limitations}
+This report certifies that the archive compiles and that the final theorems are axiom-clean. It does not certify that the proof is the simplest, that the mathematics is understood, or that the human-readable argument exists. Those are separate questions. An independent outline of the argument by S. Slijep\v{c}evi\'c (\url{https://cantabpi.com/grh.pdf}) records what a reader could and could not understand of the development.
+
+\end{document}
