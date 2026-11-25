@@ -41,6 +41,6 @@ The work splits into three jobs. The director steers the machine to the target; 
 
 The review note, the axioms check file, the shard tooling and the fleet build record are public at https://github.com/axoquant/rh-governance-review. Anyone can re-run the check. The arXiv report carries the same receipt. The cluster-shard skill, which distributes this kind of build across the fleet, is published with the repo and is available to every agent on the estate.
 
-Citable record on Zenodo: https://zenodo.org/records/24519677 (DOI issued 25 November 2026).
+Citable record on Zenodo: https://zenodo.org/records/24519677 — DOI: [10.5281/zenodo.24519677](https://doi.org/10.5281/zenodo.24519677).
 
 Contact: alex@axoquant.com.
