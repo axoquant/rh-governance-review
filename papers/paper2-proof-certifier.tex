@@ -1,0 +1,60 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage{url}
+
+\title{The proof certifier: a new role in machine-generated mathematics}
+\author{Dr Alex (Aco) Kovaceski\\AxoQuant (Kovacorp Pty Ltd), Canberra, ACT\\\texttt{alex@axoquant.com}}
+\date{26 November 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+On 20 November 2026 a paper claimed a proof of the Riemann Hypothesis, developed with Claude. The only public evidence was a Lean archive of 175,187 files and 17.4 million lines. No human can read that archive. This note argues that the episode marks a split in the mathematician's job. The director steers the machine to the target. The interpreter reads the artifact and explains what a human can understand. A third job is new: the proof certifier, who takes a claim, builds a mechanical check that can fail, runs it, and publishes the receipt. That job did not exist before the artifacts got too big to read. The scarce human input does not move: taste in targets, and judgement about what a proof ought to be. The machine supplies volume. What changes is who certifies the result.
+\end{abstract}
+
+\section{The episode}
+A paper posted at \url{https://alpo.ge/remark.pdf} on 20 November 2026 claims a proof of the Riemann Hypothesis, developed with Claude. The only public evidence is a Lean archive of 175,187 files and 17.4 million lines. The author states plainly that he has not mastered the argument. An independent outline by S. Slijep\v{c}evi\'c (\url{https://cantabpi.com/grh.pdf}) gives the argument a human shape and lists what its author could not understand.
+
+The question the episode raises is not only whether the claim is true. It is who is supposed to find out. The answer turned out to be three different people doing three different jobs.
+
+\section{The three jobs}
+The director. Levent Alp\"oge supplied the toy setting, the analogies to Stepanov and the function fields, and the judgement about which path was worth a machine's attention. Then the machine outran him. The scarce input was taste, and nothing about that is new.
+
+The interpreter. Slijep\v{c}evi\'c read the development and produced a 94-page outline, with a final section listing what he could not understand. That is audit and exposition, not proof construction. His list of open questions is the most useful part of his paper, because it is a map of where the proof is opaque to a competent reader.
+
+The certifier. I took the claim and built the one check that settles it: compile the entire archive with the pinned toolchain and show that the final theorems depend on no axioms beyond Lean's standard logic. The build ran across a Slurm cluster, and the receipt was published. The verdict is the receipt.
+
+\section{The new job}
+The third job did not exist before the artifacts got too big to read. It is not a referee. A referee reads a proof by hand and forms a view. It is not a formalizer either: a formalizer writes the Lean proof. The certifier takes a claim, designs a mechanical check that can fail, runs it, and publishes the result. Call it a proof certifier, or an assayer: the person who tests what a claimed proof is made of.
+
+The hard part is not the mathematics. The hard part is the check. A check that cannot fail is decoration, and a check nobody has run passes nothing. The discipline is to refuse to pass anything the check did not demonstrate, which is the same discipline applied to machine output everywhere else.
+
+\section{Why the job exists}
+Three properties of this artifact force the job into existence.
+
+Volume. 175,187 files and 17.4 million lines exceed what any reader can audit by inspection. The human-readable version would run 250,000 pages, a figure the author later called a joke. Either way, no person reads it.
+
+Opacity. The author himself has not mastered the argument, and an independent reader's outline lists what he could not understand. The artifact is, by construction, the most convincing version of itself. Reading it tells you nothing about whether it is right.
+
+Checkability. The artifact is a Lean project. It can be compiled, and the final theorems' axiom dependencies can be printed. The check is the strongest one mathematics has: a compiled, axiom-clean term of type \texttt{RiemannHypothesis} is a proof of the Riemann Hypothesis. The certifier's job is to make that check happen and to publish the receipt.
+
+\section{What stays human}
+The scarce input does not move. Taste in targets, and judgement about what a proof ought to be, stay with the mathematician. The machine supplies volume. What changes is who has to certify the result, and that is now a separate job with its own tools and its own receipts.
+
+The director and the interpreter remain mathematicians. The certifier need not be one. The job requires enough mathematical literacy to know what a claim should look like, and the engineering discipline to make a machine demonstrate it. That is closer to formal methods and assurance than to number theory.
+
+\section{Implications}
+For mathematical practice, the job becomes a discipline of its own. A claim of this size is settled by a check, not by a reading, and the people who can design and run that check are the new profession.
+
+For assurance, the same discipline applies to machine claims everywhere. A fluent claim with a check nobody has run is an assurance, not a control. The certifier's refusal to pass unverified work is the whole point.
+
+For the institutions, the verification record is a new kind of evidence. The Clay Millennium Prize requires publication in a qualifying journal, two years, and general acceptance. None of those criteria was designed for a proof that exists only as a machine-checked artifact. The institutions will have to catch up with the artifact.
+
+\section{Limitations}
+This is one case. The Riemann Hypothesis archive happened to compile and to be axiom-clean, and it is independently corroborated. The next claim may fail. The job exists either way, and it is more valuable when the check fails, because that is the outcome a fluent claim cannot produce on its own.
+
+\end{document}
