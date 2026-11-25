@@ -87,4 +87,5 @@ The shard tooling lives in cluster-shard/ and the fleet procedure in docs/cluste
 - Claim paper: https://alpo.ge/remark.pdf
 - Claim archive: https://alpo.ge/lean.tar.gz.part01 .. part14
 - This repo: https://github.com/axoquant/rh-governance-review
+- Zenodo record (DOI): https://zenodo.org/records/24519677
 - AxoQuant Governor whitepaper: [URL]
