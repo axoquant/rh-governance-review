@@ -73,4 +73,13 @@ The check file, the review notes, the shard tooling and the build record are at 
 \section{Limitations}
 This report certifies that the archive compiles and that the final theorems are axiom-clean. It does not certify that the proof is the simplest, that the mathematics is understood, or that the human-readable argument exists. Those are separate questions. An independent outline of the argument by S. Slijep\v{c}evi\'c (\url{https://cantabpi.com/grh.pdf}) records what a reader could and could not understand of the development.
 
+\section{Verdict}
+Verified. The archive compiles in full with the pinned toolchain and mathlib revision, and the four final theorems depend only on the standard logical axioms. The final theorem is mathlib's canonical statement of the Riemann Hypothesis. A compiled, axiom-clean term of that type is a proof of the Riemann Hypothesis, and the same holds for the three GRH forms. The claim is demonstrated, not just asserted.
+
+\section{Independent corroboration}
+Michael Rubinstein (University of Waterloo) reports an independent verification of the archive on 21 November 2026 at \url{https://www.math.uwaterloo.ca/~mrubinst/alpoge_claude_grh/}: all 175,187 modules compile; the five theorems depend only on Lean's three standard axioms; a replay of every module through Lean's kernel accepted all 175,187; and a second, independently written kernel (nanoda) checked the 1,484,729 declarations the theorems depend on, with no typechecker errors. Further independent checks are reported by Andrew Sutherland (MIT), Elliot Arledge, and a status dashboard maintained by Bartosz Naskr\k{e}cki. Rubinstein also publishes a 265-page human-readable account of the argument for the zeta function (version 2, 22 November 2026), reducing the Riemann hypothesis to a main inequality and thirteen numbered hypotheses.
+
+\section{A clarification from the author}
+On 23 November 2026 Alp\"oge posted that the 250,000-page figure in his footnote was a joke (\url{https://www.businessinsider.com/anthropic-levent-alpoe-riemann-hypothesis-page-length-joke-angers-mathematicians-2026-11}). The Lean archive remains the only formal evidence, and it is what was checked. The page-length episode does not bear on the verification.
+
 \end{document}

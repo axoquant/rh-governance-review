@@ -21,6 +21,12 @@ So we built it. The archive compiled in full with the pinned toolchain and mathl
 
 The three axioms are the standard axioms of Lean's logic, present in every mathlib proof. The claim is verified: a compiled, axiom-clean term of type RiemannHypothesis is a proof of the Riemann Hypothesis, and the three GRH forms follow the same way.
 
+## Independent corroboration
+
+Michael Rubinstein at the University of Waterloo independently verified the archive on 21 November 2026: all 175,187 modules compile, the five theorems depend only on the standard three axioms, a replay of every module through Lean's kernel accepted all 175,187, and a second independently written kernel (nanoda) checked the 1,484,729 declarations the theorems depend on, with no typechecker errors. Further independent checks are reported by Andrew Sutherland at MIT, Elliot Arledge, and a status dashboard kept by Bartosz Naskręcki. Rubinstein has also published a 265-page human-readable account of the argument for the zeta function, which addresses the gap the original note left.
+
+Alpöge clarified on 23 November that the 250,000-page figure was a joke. The archive remains the only formal evidence, and it is what was checked.
+
 ## Why the process exists
 
 The Governor was not designed on paper. It was hardened over more than two years and 500,000 automated development and review cycles inside AxoQuant's trading operation, where a fluent wrong answer costs money. Agents certified their own work, and a second model reviewing the first scored at chance. The fix was to change the task: never ask whether work is good, ask whether the output of a check demonstrates the claim. The jailbreak that followed showed the same failure at the prompt layer, and the answer was the same: a control is something an adversary cannot address, enforced in code before the model is reached.
